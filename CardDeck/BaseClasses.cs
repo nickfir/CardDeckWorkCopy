@@ -54,17 +54,13 @@ namespace CardDeck
         public Hand(string name, int count) : base(name)
         {
             PlayerName = Name;
-            cards = new Card[count];
-            for(int i=0;i <= (count-1);i++)
-            {
-                this.cards[i] = new Card("","",1);
-            }
+            this.Cards= new List<Card>();// = new Card[count];
         }
         public string PlayerName
         {
             get;
         }
-        public Card[] cards;
+        public List<Card> Cards;
     }
     public class Deck : NamedObject, IDeck
     {
@@ -93,15 +89,20 @@ namespace CardDeck
             Card card = new Card("","",0);
             if (Index < this.Cards.Count)
             {
-                card = this.Cards[index];
+                card = this.Cards[Index];
                 Index++;
                 return card;
             }
             else
             {
                 Console.WriteLine("Out of Cards!");
+                Console.WriteLine("Shuffling!");
+                this.Index = 0;
+                this.ShuffleDeck();
                 Console.ReadLine();
-                return null;
+                card = this.Cards[Index];
+                Index++;
+                return card;
             }
         }
         public virtual Deck ShuffleDeck()
