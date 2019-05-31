@@ -54,7 +54,7 @@ namespace CardDeck
         public Hand(string name, int count) : base(name)
         {
             PlayerName = Name;
-            this.Cards= new List<Card>();// = new Card[count];
+            this.Cards= new List<Card>();
         }
         public string PlayerName
         {

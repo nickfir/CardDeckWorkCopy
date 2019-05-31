@@ -47,22 +47,25 @@ namespace CardDeck
                 for (int i = 0; i <= (game.Hands.Count - 1); i++)
                 {
                     int j = 1;
+                    readout:
+                    foreach (Card card in game.Hands[i].Cards)
+                    //                for (int j = 0; j <=1; j++)
+                    {
+                        Console.WriteLine($"{game.Hands[i].PlayerName}'s {j} card: {card.Name} of {card.Suit}");
+                        j++;
+                    }
                     if (game.Hands[i].IsPair())
                     {
-                        Console.WriteLine("A Pair, Split? (y/n)");
+                        Console.WriteLine($"A Pair of {game.Hands[i].Cards[0].Name}'s, Split? (y/n)");
                         string x = Console.ReadLine();
                         if (x == "y")
                         {
                             game.SplitPair(game.Hands, deck2, i);
+                            j = 1;
+                            goto readout;
                         }
                     }
                     Console.WriteLine($"Value of hand: {game.Hands[i].GetValue()}");
-                    foreach (Card card in game.Hands[i].Cards)
-                    //                for (int j = 0; j <=1; j++)
-                    {
-                        Console.WriteLine($"{card.Name} is Player {game.Hands[i].PlayerName}'s card {j}");
-                        j++;
-                    }
                 }
                 Console.WriteLine("Quit? (y/n)");
                 quit = Console.ReadLine();

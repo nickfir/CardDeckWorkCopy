@@ -52,8 +52,8 @@ namespace CardDeck
             Card card = new Card("","",0);
             card = hand[index].Cards[1];
             hand[index].Cards[1] = deck.Draw(1);
-            handnew.Cards[0] = card;
-            handnew.Cards[1] = deck.Draw(1);
+            handnew.Cards.Add(card);
+            handnew.Cards.Add(deck.Draw(1));
             hand.Add(handnew);
 
         }
@@ -80,7 +80,7 @@ namespace CardDeck
             }
             public bool IsPair()
             {
-                if ((this != null) && (this.Cards[0].Name == this.Cards[1].Name) && (this.Cards.Count == 2))
+                if ((this != null) && (this.Cards[0].Value == this.Cards[1].Value) && (this.Cards.Count == 2))
                 {
                     return true;
                 }
@@ -97,11 +97,11 @@ namespace CardDeck
                     {
                         if (IsAce(card) && (value <= 10))
                         {
-                            value = value + 11;
+                            value = (value <= 10) ? value + 11 : 21;
                         }
                         else
                         {
-                            value += card.Value;
+                            value += (card.Value <= 10) ? card.Value : 10;
                         }
                     }
                     if (value == 21)
